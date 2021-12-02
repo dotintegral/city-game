@@ -1,6 +1,7 @@
 import { scenesRegister } from '../scenes';
 import { Tile } from '../../objects/tile';
 import { createKeyBindings } from './keyBindings';
+import FpsText from '../../objects/fpsText';
 
 type MapTile = {
   type: 'tile';
@@ -23,6 +24,7 @@ for (let i = 0; i < mapSize; i++) {
 
 export default class MainScene extends Phaser.Scene {
   keyBindings;
+  fps;
 
   constructor() {
     super({ key: scenesRegister.MainScene });
@@ -32,6 +34,7 @@ export default class MainScene extends Phaser.Scene {
     this.createTiles();
 
     this.keyBindings = createKeyBindings(this);
+    this.fps = new FpsText(this);
 
     this.keyBindings.bindKeys();
   }
@@ -54,6 +57,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   update() {
+    this.fps.update();
     this.keyBindings.handleCameraMovement();
   }
 }

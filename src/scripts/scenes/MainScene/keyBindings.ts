@@ -1,4 +1,7 @@
 const cameraSpeed = 10;
+const zoomLevel = 0.1;
+const minZoomLevel = 0.2;
+const maxZoomLevel = 2;
 
 export const createKeyBindings = (scene: Phaser.Scene) => {
   const pressedKeys: Record<string, boolean> = {};
@@ -11,6 +14,18 @@ export const createKeyBindings = (scene: Phaser.Scene) => {
       .on('keyup', ({ key }) => {
         pressedKeys[key] = false;
       });
+
+    scene.input.on('wheel', (pointer, currentlyOver, dx, dy, dz, event) => {
+      if (dy > 0) {
+        if (scene.cameras.main.zoom > minZoomLevel) {
+          scene.cameras.main.zoom -= zoomLevel;
+        }
+      } else if (dy < 0) {
+        if (scene.cameras.main.zoom < maxZoomLevel) {
+          scene.cameras.main.zoom += zoomLevel;
+        }
+      }
+    });
   };
 
   const handleCameraMovement = () => {
