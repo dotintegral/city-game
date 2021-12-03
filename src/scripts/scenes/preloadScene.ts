@@ -17,6 +17,7 @@ export default class PreloadScene extends Phaser.Scene {
 
   create() {
     this.scene.start(scenesRegister.MainScene);
+    this.scene.start(scenesRegister.UIScene);
 
     /**
      * This is how you would dynamically import the mainScene class (with code splitting),

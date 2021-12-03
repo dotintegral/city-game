@@ -11,16 +11,17 @@ export class Tile extends Phaser.GameObjects.Image {
     this.originY = 1;
     this.updateDisplayOrigin();
 
-    // this.setInteractive({
-    //   pixelPerfect: true,
-    //   alphaTolerance: 1,
-    // })
-    //   .on('pointerover', () => {
-    //     this.alpha = 0.5;
-    //   })
-    //   .on('pointerout', () => {
-    //     this.alpha = 1;
-    //   });
+    this.setInteractive({
+      pixelPerfect: true,
+      alphaTolerance: 1,
+    })
+      .on('pointerover', () => {
+        this.setTint(0x00ff00);
+      })
+      .on('pointerout', () => {
+        this.clearTint();
+      });
+
     scene.add.existing(this);
 
     if (tileInfo.type === 'building') {
@@ -29,9 +30,6 @@ export class Tile extends Phaser.GameObjects.Image {
       building.originY = 1;
 
       building.updateDisplayOrigin();
-
-      // @ts-ignore
-      scene.uiCamera.ignore(building);
     }
   }
 }

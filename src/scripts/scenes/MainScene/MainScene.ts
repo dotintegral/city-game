@@ -1,7 +1,6 @@
 import { scenesRegister } from '../scenes';
 import { Tile } from '../../objects/tile';
 import { createKeyBindings } from './keyBindings';
-import { createUiCamera } from './uiCamera';
 import { MapTile } from '../../types';
 
 const tile: MapTile = {
@@ -25,16 +24,15 @@ console.log({ map });
 
 export default class MainScene extends Phaser.Scene {
   keyBindings;
-  fps;
-  uiCamera;
+  ui;
 
   constructor() {
     super({ key: scenesRegister.MainScene });
   }
 
   create() {
-    this.uiCamera = createUiCamera(this);
     this.keyBindings = createKeyBindings(this);
+    // this.ui = createUI(this);
 
     this.createTiles();
 
@@ -54,13 +52,11 @@ export default class MainScene extends Phaser.Scene {
         const y = rowTopY + 16 * index;
 
         const tile = new Tile(this, x, y, mapTile);
-        this.uiCamera.ignore(tile);
       });
     });
   }
 
   update() {
-    this.uiCamera.update();
     this.keyBindings.handleCameraMovement();
   }
 }
