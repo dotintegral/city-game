@@ -18,8 +18,6 @@ for (let i = 0; i < mapSize; i++) {
   }
 }
 
-map[15][15].type = 'building';
-
 console.log({ map });
 
 export default class MainScene extends Phaser.Scene {
