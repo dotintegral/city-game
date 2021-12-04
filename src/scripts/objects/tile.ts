@@ -4,11 +4,25 @@ import { MapTile } from '../types';
 
 const Events = Phaser.Input.Events;
 
+const ZIndices = {
+  tileSprite: 0,
+  contentSprite: 5,
+  overlaySprite: 1000000,
+};
+
+type TileProps = {
+  scene: Phaser.Scene;
+  x: number;
+  y: number;
+  tileInfo: MapTile;
+  zIndex: number;
+};
+
 export class Tile extends Phaser.GameObjects.Image {
   overlay: Phaser.GameObjects.Image | undefined;
   content: Phaser.GameObjects.Image | undefined;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, tileInfo: MapTile) {
+  constructor({ scene, x, y, zIndex }: TileProps) {
     const gfx = assetsRegister.tiles.green;
 
     super(scene, x, y, gfx);
@@ -16,6 +30,7 @@ export class Tile extends Phaser.GameObjects.Image {
     this.originX = 0;
     this.originY = 1;
     this.updateDisplayOrigin();
+    this.setDepth(zIndex + ZIndices.tileSprite);
 
     this.setInteractive({
       pixelPerfect: true,
@@ -25,13 +40,11 @@ export class Tile extends Phaser.GameObjects.Image {
     this.on(Events.POINTER_OVER, () => {
       if (globalState.mode === 'build' && this.content === undefined) {
         this.overlay = scene.add.image(x, y, assetsRegister.buildings.block1);
-        this.overlay.originX = 0;
-        this.overlay.originY = 1;
+        this.overlay.setOrigin(0, 1);
+        this.overlay.setAlpha(0.5);
+        this.overlay.setDepth(zIndex + ZIndices.overlaySprite);
 
-        this.overlay.updateDisplayOrigin();
-        this.overlay.alpha = 0.5;
-
-        this.setTint(0x00ff00);
+        // this.setTint(0x00ff00);
       }
     });
     this.on(Events.POINTER_OUT, () => {
@@ -40,7 +53,7 @@ export class Tile extends Phaser.GameObjects.Image {
         this.overlay = undefined;
       }
 
-      this.clearTint();
+      // this.clearTint();
     });
 
     this.on(Events.POINTER_DOWN, () => {
@@ -50,16 +63,11 @@ export class Tile extends Phaser.GameObjects.Image {
         this.overlay = undefined;
 
         this.content = scene.add.image(x, y, assetsRegister.buildings.block1);
-        this.content.originX = 0;
-        this.content.originY = 1;
-
-        this.content.updateDisplayOrigin();
+        this.content.setOrigin(0, 1);
+        this.content.setDepth(zIndex + ZIndices.contentSprite);
       }
     });
 
     scene.add.existing(this);
-
-    if (tileInfo.type === 'building') {
-    }
   }
 }

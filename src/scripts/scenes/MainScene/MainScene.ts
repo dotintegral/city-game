@@ -48,8 +48,9 @@ export default class MainScene extends Phaser.Scene {
       row.forEach((mapTile, index) => {
         const x = rowTopX + 32 * index;
         const y = rowTopY + 16 * index;
+        const zIndex = (rowIndex + index + 1) * 10;
 
-        const tile = new Tile(this, x, y, mapTile);
+        const tile = new Tile({ scene: this, x, y, tileInfo: mapTile, zIndex });
       });
     });
   }
