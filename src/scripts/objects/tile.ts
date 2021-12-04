@@ -24,7 +24,7 @@ export class Tile extends Phaser.GameObjects.Image {
 
     this.on(Events.POINTER_OVER, () => {
       if (globalState.mode === 'build' && this.content === undefined) {
-        this.overlay = scene.add.image(x, y, assetsRegister.buildings.house1);
+        this.overlay = scene.add.image(x, y, assetsRegister.buildings.block1);
         this.overlay.originX = 0;
         this.overlay.originY = 1;
 
@@ -44,11 +44,12 @@ export class Tile extends Phaser.GameObjects.Image {
     });
 
     this.on(Events.POINTER_DOWN, () => {
+      console.log('tile');
       if (globalState.mode === 'build' && this.content === undefined) {
         this.overlay?.destroy();
         this.overlay = undefined;
 
-        this.content = scene.add.image(x, y, assetsRegister.buildings.house1);
+        this.content = scene.add.image(x, y, assetsRegister.buildings.block1);
         this.content.originX = 0;
         this.content.originY = 1;
 

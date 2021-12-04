@@ -5,5 +5,6 @@ export const assetsRegister = {
   },
   buildings: {
     house1: 'assets/buildings/house1.png',
+    block1: 'assets/buildings/block1.png',
   },
 };

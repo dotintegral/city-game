@@ -30,6 +30,7 @@ const createLeftBar = () => {
         } else {
           globalState.mode = 'view';
         }
+        console.log('button');
       },
     })
   );

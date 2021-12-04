@@ -13,6 +13,10 @@ export default class PreloadScene extends Phaser.Scene {
       assetsRegister.buildings.house1,
       assetsRegister.buildings.house1
     );
+    this.load.image(
+      assetsRegister.buildings.block1,
+      assetsRegister.buildings.block1
+    );
   }
 
   create() {
