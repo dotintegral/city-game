@@ -41,12 +41,16 @@ body {
 /* --- Selection Bar --- */
 
 .selectionBar {
-  width: 210px;
+  width: 232px;
   min-height: 500px;
   background: #bbbbbb;
   position: absolute;
   top: 0px;
   left: 50px;
+  overflow-y: scroll;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
 }
 
 .selectionBarItem {
@@ -54,6 +58,11 @@ body {
   height: 90px;
   border: solid 1px gray;
   font-size: 10px;
+  cursor: pointer;
+}
+
+.selectionBarItem:hover {
+  background: #dddddd;
 }
 
 .selectionBarItemImage {

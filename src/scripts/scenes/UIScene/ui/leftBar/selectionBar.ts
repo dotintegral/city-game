@@ -22,7 +22,7 @@ const listBuildings = () => {
 export const createSelectionBar = () => {
   const element = document.createElement('div');
   element.className = 'selectionBar';
-  element.innerHTML = listBuildings();
+  element.innerHTML = listBuildings() + listBuildings();
 
   return element;
 };
