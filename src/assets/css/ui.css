@@ -2,6 +2,8 @@ body {
   font-family: monospace;
 }
 
+/* --- Left Menu --- */
+
 .leftMenuWrapper {
   position: relative;
 }
@@ -36,11 +38,36 @@ body {
   background: transparent !important;
 }
 
-.leftMenuSelectionBar {
-  width: 100px;
+/* --- Selection Bar --- */
+
+.selectionBar {
+  width: 210px;
   min-height: 500px;
   background: #bbbbbb;
   position: absolute;
   top: 0px;
   left: 50px;
+}
+
+.selectionBarItem {
+  width: 70px;
+  height: 90px;
+  border: solid 1px gray;
+  font-size: 10px;
+}
+
+.selectionBarItemImage {
+  width: 70px;
+  height: 70px;
+  background-size: contain;
+  background-position-x: center;
+  background-position-y: center;
+  background-repeat: no-repeat;
+}
+
+.selectionBarItemName {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

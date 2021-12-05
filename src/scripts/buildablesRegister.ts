@@ -1,6 +1,6 @@
 import { assetsRegister } from './assetsRegister';
 
-type Buildable = {
+export type Buildable = {
   sprite: string;
   name: string;
 };
