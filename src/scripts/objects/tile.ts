@@ -58,7 +58,6 @@ export class Tile extends Phaser.GameObjects.Image {
     });
 
     this.on(Events.POINTER_DOWN, () => {
-      console.log('tile');
       if (globalState.mode === 'build' && this.content === undefined) {
         this.overlay?.destroy();
         this.overlay = undefined;

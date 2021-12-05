@@ -2,9 +2,13 @@ body {
   font-family: monospace;
 }
 
+.leftMenuWrapper {
+  position: relative;
+}
+
 .leftMenu {
   width: 50px;
-  min-height: 200px;
+  min-height: 500px;
   background: gray;
 }
 
@@ -30,4 +34,13 @@ body {
   color: rgb(80, 80, 80);
   cursor: auto !important;
   background: transparent !important;
+}
+
+.leftMenuSelectionBar {
+  width: 100px;
+  min-height: 500px;
+  background: #bbbbbb;
+  position: absolute;
+  top: 0px;
+  left: 50px;
 }
