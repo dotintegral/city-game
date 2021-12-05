@@ -1,28 +1,44 @@
 import { Buildable, buildablesRegister } from '../../../../buildablesRegister';
+import { globalState } from '../../../../state';
 
 const listBuildings = () => {
   const keys = Object.keys(buildablesRegister.buildings);
   const items = keys.map((key) => {
     const buildable: Buildable = buildablesRegister.buildings[key];
 
-    return `
-    <div class="selectionBarItem">
+    const item = document.createElement('div');
+
+    item.className = 'selectionBarItem';
+    item.innerHTML = `
       <div class="selectionBarItemImage" style="background-image: url(${buildable.sprite})">
       </div>
       <div class="selectionBarItemName">
         ${buildable.name}
       </div>
-    </div>
     `;
+
+    item.addEventListener('click', () => {
+      globalState.mode = 'build';
+      globalState.modeData = {
+        buildable,
+      };
+    });
+
+    return item;
   });
 
-  return items.join('');
+  return items;
 };
 
 export const createSelectionBar = () => {
   const element = document.createElement('div');
   element.className = 'selectionBar';
-  element.innerHTML = listBuildings() + listBuildings();
+
+  const items = listBuildings();
+
+  items.forEach((item) => {
+    element.appendChild(item);
+  });
 
   return element;
 };

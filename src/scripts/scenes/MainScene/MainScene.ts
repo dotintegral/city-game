@@ -1,5 +1,5 @@
 import { scenesRegister } from '../scenes';
-import { Tile } from '../../objects/tile';
+import { Tile } from '../../objects/Tile/Tile';
 import { createKeyBindings } from './keyBindings';
 import { MapTile } from '../../types';
 

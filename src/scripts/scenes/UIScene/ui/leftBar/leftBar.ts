@@ -29,11 +29,11 @@ export const createLeftBar = (scene: Phaser.Scene) => {
       name: 'build',
       caption: 'Build',
       callback: () => {
-        if (globalState.mode !== 'build') {
-          globalState.mode = 'build';
-        } else {
-          globalState.mode = 'view';
-        }
+        // if (globalState.mode !== 'build') {
+        //   globalState.mode = 'build';
+        // } else {
+        //   globalState.mode = 'view';
+        // }
       },
     })
   );
