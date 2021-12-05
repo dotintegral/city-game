@@ -1,5 +1,6 @@
-import { assetsRegister } from '../assetsRegister';
-import { scenesRegister } from './scenes';
+import { assetsRegister } from '../../assetsRegister';
+import { scenesRegister } from '../scenes';
+import { flattenAssets } from './assets.helper';
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -7,16 +8,11 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image(assetsRegister.tiles.green, assetsRegister.tiles.green);
-    this.load.image(assetsRegister.tiles.yellow, assetsRegister.tiles.yellow);
-    this.load.image(
-      assetsRegister.buildings.house1,
-      assetsRegister.buildings.house1
-    );
-    this.load.image(
-      assetsRegister.buildings.block1,
-      assetsRegister.buildings.block1
-    );
+    const allAssets = flattenAssets(assetsRegister);
+
+    allAssets.forEach((assetPath) => {
+      this.load.image(assetPath, assetPath);
+    });
   }
 
   create() {

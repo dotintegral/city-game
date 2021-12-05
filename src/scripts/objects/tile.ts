@@ -7,7 +7,8 @@ const Events = Phaser.Input.Events;
 const ZIndices = {
   tileSprite: 0,
   contentSprite: 5,
-  overlaySprite: 1000000,
+  overlayBorders: 1000000,
+  overlaySprite: 1000001,
 };
 
 type TileProps = {

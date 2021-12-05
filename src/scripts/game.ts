@@ -1,6 +1,6 @@
 import 'phaser';
 import MainScene from './scenes/MainScene/MainScene';
-import PreloadScene from './scenes/preloadScene';
+import PreloadScene from './scenes/PreloadScene/PreloadScene';
 import UIScene from './scenes/UIScene/UIScene';
 
 const DEFAULT_WIDTH = 1280;
