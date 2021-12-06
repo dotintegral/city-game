@@ -1,4 +1,4 @@
-import { globalState } from '../../../../state';
+import { globalState, setGlobalState } from '../../../../globalState';
 import { createSelectionBar } from './selectionBar';
 
 type CreateButtonProps = {
@@ -18,6 +18,7 @@ const createButton = ({ name, caption, callback }: CreateButtonProps) => {
 };
 
 export const createLeftBar = (scene: Phaser.Scene) => {
+  const { selectionBarContainer, openBuildMenu } = createSelectionBar();
   const leftBarWrapper = document.createElement('div');
   leftBarWrapper.className = 'leftMenuWrapper';
 
@@ -29,11 +30,18 @@ export const createLeftBar = (scene: Phaser.Scene) => {
       name: 'build',
       caption: 'Build',
       callback: () => {
-        // if (globalState.mode !== 'build') {
-        //   globalState.mode = 'build';
-        // } else {
-        //   globalState.mode = 'view';
-        // }
+        openBuildMenu();
+        setGlobalState({ mode: 'view' });
+      },
+    })
+  );
+
+  leftBarElement.appendChild(
+    createButton({
+      name: 'demolish',
+      caption: 'DMLSH',
+      callback: () => {
+        setGlobalState({ mode: 'demolish' });
       },
     })
   );
@@ -43,7 +51,7 @@ export const createLeftBar = (scene: Phaser.Scene) => {
   );
 
   leftBarWrapper.appendChild(leftBarElement);
-  leftBarWrapper.appendChild(createSelectionBar());
+  leftBarWrapper.appendChild(selectionBarContainer);
 
   const leftBarDom = scene.add.dom(0, 100, leftBarWrapper);
   leftBarDom.originX = 0;

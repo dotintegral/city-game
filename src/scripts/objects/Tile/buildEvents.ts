@@ -1,5 +1,5 @@
 import { assetsRegister } from '../../assetsRegister';
-import { globalState } from '../../state';
+import { globalState } from '../../globalState';
 import { Tile } from './Tile';
 import { ZIndices } from './zIndices';
 
@@ -15,7 +15,14 @@ export const createBuildEvents = (tile: Tile) => {
       tile.overlay.setAlpha(0.5);
       tile.overlay.setDepth(tile.zIndex + ZIndices.overlaySprite);
 
-      // tile.setTint(0x00ff00);
+      tile.selection = tile.scene.add.image(
+        tile.x,
+        tile.y,
+        assetsRegister.tiles.selection
+      );
+      tile.selection.setOrigin(0, 1);
+      tile.selection.setDepth(tile.zIndex + ZIndices.overlayBorders);
+      tile.selection.setTint(0x10a010);
     }
   };
 
@@ -25,7 +32,10 @@ export const createBuildEvents = (tile: Tile) => {
       tile.overlay = undefined;
     }
 
-    // tile.clearTint();
+    if (tile.selection?.destroy) {
+      tile.selection.destroy();
+      tile.overlay = undefined;
+    }
   };
 
   const onPointerDown = () => {

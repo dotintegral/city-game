@@ -42,15 +42,48 @@ body {
 
 .selectionBar {
   width: 232px;
-  min-height: 500px;
+  height: 500px;
   background: #bbbbbb;
   position: absolute;
   top: 0px;
   left: 50px;
+}
+
+.selectionBarTitleBar {
+  height: 25px;
+  display: flex;
+  border-bottom: solid 1px gray;
+  box-sizing: border-box;
+}
+
+.selectionBarTitleBarTitle {
+  flex-grow: 2;
+  display: flex;
+  height: 25px;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectionBarTitleBarCloseButton {
+  flex-basis: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: solid 1px gray;
+  cursor: pointer;
+}
+
+.selectionBarTitleBarCloseButton:hover {
+  background: #dddddd;
+}
+
+.selectionBarContent {
   overflow-y: scroll;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
+  height: 475px;
 }
 
 .selectionBarItem {
