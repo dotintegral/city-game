@@ -27,14 +27,16 @@ export const createBuildEvents = (tile: Tile) => {
   };
 
   const onPointerOut = () => {
-    if (tile.overlay?.destroy) {
-      tile.overlay.destroy();
-      tile.overlay = undefined;
-    }
+    if (globalState.mode === 'build' && tile.content === undefined) {
+      if (tile.overlay?.destroy) {
+        tile.overlay.destroy();
+        tile.overlay = undefined;
+      }
 
-    if (tile.selection?.destroy) {
-      tile.selection.destroy();
-      tile.overlay = undefined;
+      if (tile.selection?.destroy) {
+        tile.selection.destroy();
+        tile.overlay = undefined;
+      }
     }
   };
 
@@ -50,6 +52,11 @@ export const createBuildEvents = (tile: Tile) => {
       );
       tile.content.setOrigin(0, 1);
       tile.content.setDepth(tile.zIndex + ZIndices.contentSprite);
+
+      if (tile.selection?.destroy) {
+        tile.selection.destroy();
+        tile.overlay = undefined;
+      }
     }
   };
 

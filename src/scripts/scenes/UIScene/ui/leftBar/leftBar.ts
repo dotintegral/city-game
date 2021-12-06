@@ -18,7 +18,8 @@ const createButton = ({ name, caption, callback }: CreateButtonProps) => {
 };
 
 export const createLeftBar = (scene: Phaser.Scene) => {
-  const { selectionBarContainer, openBuildMenu } = createSelectionBar();
+  const { selectionBarContainer, openSelectionBar, closeSelectionBar } =
+    createSelectionBar();
   const leftBarWrapper = document.createElement('div');
   leftBarWrapper.className = 'leftMenuWrapper';
 
@@ -30,7 +31,8 @@ export const createLeftBar = (scene: Phaser.Scene) => {
       name: 'build',
       caption: 'Build',
       callback: () => {
-        openBuildMenu();
+        closeSelectionBar();
+        openSelectionBar();
         setGlobalState({ mode: 'view' });
       },
     })
@@ -41,13 +43,20 @@ export const createLeftBar = (scene: Phaser.Scene) => {
       name: 'demolish',
       caption: 'DMLSH',
       callback: () => {
+        closeSelectionBar();
         setGlobalState({ mode: 'demolish' });
       },
     })
   );
 
   leftBarElement.appendChild(
-    createButton({ name: 'tbd', caption: 'TBD', callback: () => {} })
+    createButton({
+      name: 'tbd',
+      caption: 'TBD',
+      callback: () => {
+        closeSelectionBar();
+      },
+    })
   );
 
   leftBarWrapper.appendChild(leftBarElement);

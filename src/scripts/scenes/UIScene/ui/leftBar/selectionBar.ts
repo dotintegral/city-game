@@ -90,6 +90,7 @@ export const createSelectionBar = () => {
 
   return {
     selectionBarContainer,
-    openBuildMenu: createOpenBuildMenu,
+    openSelectionBar: createOpenBuildMenu,
+    closeSelectionBar: clearSelectionBar,
   };
 };
