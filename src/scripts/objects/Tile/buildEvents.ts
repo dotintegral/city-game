@@ -48,7 +48,8 @@ export const createBuildEvents = (tile: Tile) => {
       tile.content = tile.scene.add.image(
         tile.x,
         tile.y,
-        globalState.modeData?.buildable.sprite || ''
+        globalState.modeData?.buildable.sprite || '',
+        0
       );
       tile.content.setOrigin(0, 1);
       tile.content.setDepth(tile.zIndex + ZIndices.contentSprite);

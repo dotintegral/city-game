@@ -13,6 +13,11 @@ export default class PreloadScene extends Phaser.Scene {
     allAssets.forEach((assetPath) => {
       this.load.image(assetPath, assetPath);
     });
+
+    this.load.spritesheet('roads', 'assets/tiles/roads.png', {
+      frameWidth: 64,
+      frameHeight: 32,
+    });
   }
 
   create() {
