@@ -9,7 +9,8 @@ export const createBuildEvents = (tile: Tile) => {
       tile.overlay = tile.scene.add.image(
         tile.x,
         tile.y,
-        globalState.modeData?.buildable.sprite || ''
+        globalState.modeData?.buildable.sprite || '',
+        globalState.modeData?.buildable.frame || 0
       );
       tile.overlay.setOrigin(0, 1);
       tile.overlay.setAlpha(0.5);
@@ -49,7 +50,7 @@ export const createBuildEvents = (tile: Tile) => {
         tile.x,
         tile.y,
         globalState.modeData?.buildable.sprite || '',
-        0
+        globalState.modeData?.buildable.frame || 0
       );
       tile.content.setOrigin(0, 1);
       tile.content.setDepth(tile.zIndex + ZIndices.contentSprite);

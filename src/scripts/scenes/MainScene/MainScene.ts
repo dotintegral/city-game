@@ -1,24 +1,9 @@
 import { scenesRegister } from '../scenes';
 import { Tile } from '../../objects/Tile/Tile';
 import { createKeyBindings } from './keyBindings';
-import { MapTile } from '../../types';
-
-const tile: MapTile = {
-  type: 'tile',
-};
-
-const map: MapTile[][] = [];
+import { globalState } from '../../globalState';
 
 const mapSize = 32;
-
-for (let i = 0; i < mapSize; i++) {
-  map.push([]);
-  for (let j = 0; j < mapSize; j++) {
-    map[i].push({ ...tile });
-  }
-}
-
-console.log({ map });
 
 export default class MainScene extends Phaser.Scene {
   keyBindings;
@@ -30,7 +15,6 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
     this.keyBindings = createKeyBindings(this);
-    // this.ui = createUI(this);
 
     this.createTiles();
 
@@ -41,18 +25,20 @@ export default class MainScene extends Phaser.Scene {
     const mapTopY = 100;
     const mapTopX = this.cameras.main.width / 2;
 
-    map.forEach((row, rowIndex) => {
-      const rowTopX = mapTopX - rowIndex * 32;
-      const rowTopY = mapTopY + rowIndex * 16;
+    for (let row = 0; row < mapSize; row++) {
+      const rowTopX = mapTopX - row * 32;
+      const rowTopY = mapTopY + row * 16;
+      globalState.map.mapArray.push([]);
 
-      row.forEach((mapTile, index) => {
-        const x = rowTopX + 32 * index;
-        const y = rowTopY + 16 * index;
-        const zIndex = (rowIndex + index + 1) * 10;
+      for (let column = 0; column < mapSize; column++) {
+        const x = rowTopX + 32 * column;
+        const y = rowTopY + 16 * column;
+        const zIndex = (row + column + 1) * 10;
 
-        const tile = new Tile({ scene: this, x, y, tileInfo: mapTile, zIndex });
-      });
-    });
+        const tile = new Tile({ scene: this, x, y, zIndex, row, column });
+        globalState.map.mapArray[row].push(tile);
+      }
+    }
   }
 
   update() {

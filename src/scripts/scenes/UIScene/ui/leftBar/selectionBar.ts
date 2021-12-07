@@ -1,43 +1,8 @@
-import { Buildable, buildablesRegister } from '../../../../buildablesRegister';
-import { setGlobalState } from '../../../../globalState';
+import { setGlobalMode } from '../../../../globalState';
+import { listBuildings } from './selections/listBuildings';
+import { listRoads } from './selections/listRoads';
 
 let selectionBar;
-
-const listBuildings = () => {
-  const keys = Object.keys(buildablesRegister.buildings);
-  const items = keys.map((key) => {
-    const buildable: Buildable = buildablesRegister.buildings[key];
-
-    const item = document.createElement('div');
-
-    item.className = 'selectionBarItem';
-    item.innerHTML = `
-      <div class="selectionBarItemImage" style="background-image: url(${buildable.sprite})">
-      </div>
-      <div class="selectionBarItemName">
-        ${buildable.name}
-      </div>
-    `;
-
-    item.addEventListener('click', () => {
-      setGlobalState({
-        mode: 'build',
-        data: { buildable },
-      });
-    });
-
-    return item;
-  });
-
-  const content = document.createElement('div');
-  content.className = 'selectionBarContent';
-
-  items.forEach((item) => {
-    content.appendChild(item);
-  });
-
-  return content;
-};
 
 const clearSelectionBar = () => {
   const container = document.querySelector('.selectionBarContainer');
@@ -60,7 +25,7 @@ const createTitleBar = (name: string) => {
 
   closeButton.addEventListener('click', () => {
     clearSelectionBar();
-    setGlobalState({ mode: 'view' });
+    setGlobalMode({ mode: 'view' });
   });
 
   titleBar.appendChild(title);
@@ -69,16 +34,24 @@ const createTitleBar = (name: string) => {
   return titleBar;
 };
 
-const createOpenBuildMenu = () => {
+type SelectionBarType = 'build' | 'roads';
+
+const openSelectionBar = (type: SelectionBarType) => {
   clearSelectionBar();
   const sectionBar = document.createElement('div');
   sectionBar.className = 'selectionBar';
 
-  const titleBar = createTitleBar('Build');
+  const titleBar = createTitleBar(type);
   sectionBar.appendChild(titleBar);
 
-  const content = listBuildings();
-  sectionBar.appendChild(content);
+  if (type === 'build') {
+    const content = listBuildings();
+    sectionBar.appendChild(content);
+  }
+  if (type === 'roads') {
+    const content = listRoads();
+    sectionBar.appendChild(content);
+  }
 
   const container = document.querySelector('.selectionBarContainer');
   container?.appendChild(sectionBar);
@@ -90,7 +63,7 @@ export const createSelectionBar = () => {
 
   return {
     selectionBarContainer,
-    openSelectionBar: createOpenBuildMenu,
+    openSelectionBar: openSelectionBar,
     closeSelectionBar: clearSelectionBar,
   };
 };

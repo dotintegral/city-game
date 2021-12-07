@@ -1,4 +1,4 @@
-import { globalState, setGlobalState } from '../../../../globalState';
+import { globalState, setGlobalMode } from '../../../../globalState';
 import { createSelectionBar } from './selectionBar';
 
 type CreateButtonProps = {
@@ -28,12 +28,24 @@ export const createLeftBar = (scene: Phaser.Scene) => {
 
   leftBarElement.appendChild(
     createButton({
+      name: 'roads',
+      caption: 'Roads',
+      callback: () => {
+        closeSelectionBar();
+        openSelectionBar('roads');
+        setGlobalMode({ mode: 'view' });
+      },
+    })
+  );
+
+  leftBarElement.appendChild(
+    createButton({
       name: 'build',
       caption: 'Build',
       callback: () => {
         closeSelectionBar();
-        openSelectionBar();
-        setGlobalState({ mode: 'view' });
+        openSelectionBar('build');
+        setGlobalMode({ mode: 'view' });
       },
     })
   );
@@ -44,7 +56,7 @@ export const createLeftBar = (scene: Phaser.Scene) => {
       caption: 'DMLSH',
       callback: () => {
         closeSelectionBar();
-        setGlobalState({ mode: 'demolish' });
+        setGlobalMode({ mode: 'demolish' });
       },
     })
   );

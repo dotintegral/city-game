@@ -1,5 +1,4 @@
 import { assetsRegister } from '../../assetsRegister';
-import { MapTile } from '../../types';
 import { BuildEvents, createBuildEvents } from './buildEvents';
 import { createDemolishEvents, DemolishEvents } from './demolishEvents';
 import { ZIndices } from './zIndices';
@@ -10,7 +9,8 @@ type TileProps = {
   scene: Phaser.Scene;
   x: number;
   y: number;
-  tileInfo: MapTile;
+  row: number;
+  column: number;
   zIndex: number;
 };
 
@@ -22,11 +22,13 @@ export class Tile extends Phaser.GameObjects.Image {
   zIndex: number;
   x: number;
   y: number;
+  row: number;
+  column: number;
 
   buildEvents: BuildEvents;
   demolishEvents: DemolishEvents;
 
-  constructor({ scene, x, y, zIndex }: TileProps) {
+  constructor({ scene, x, y, zIndex, row, column }: TileProps) {
     const gfx = assetsRegister.tiles.green;
 
     super(scene, x, y, gfx);
@@ -35,6 +37,8 @@ export class Tile extends Phaser.GameObjects.Image {
     this.zIndex = zIndex;
     this.x = x;
     this.y = y;
+    this.row = row;
+    this.column = column;
 
     this.originX = 0;
     this.originY = 1;
@@ -59,6 +63,7 @@ export class Tile extends Phaser.GameObjects.Image {
     });
 
     this.on(Events.POINTER_DOWN, () => {
+      console.log({ row, column });
       this.buildEvents.onPointerDown();
       this.demolishEvents.onPointerDown();
     });

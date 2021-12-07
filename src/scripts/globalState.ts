@@ -1,4 +1,5 @@
 import { Buildable } from './buildablesRegister';
+import { Tile } from './objects/Tile/Tile';
 
 type GameMode = 'view' | 'build' | 'demolish';
 
@@ -9,12 +10,20 @@ type BuildData = {
 type State = {
   mode: GameMode;
   modeData: BuildData | undefined;
+  map: {
+    mapArray: Tile[][];
+  };
 };
 
 export const globalState: State = {
   mode: 'view',
   modeData: undefined,
+  map: {
+    mapArray: [],
+  },
 };
+
+window['_globalState'] = globalState;
 
 type SetStateProps =
   | {
@@ -28,7 +37,7 @@ type SetStateProps =
       mode: 'demolish';
     };
 
-export const setGlobalState = (props: SetStateProps) => {
+export const setGlobalMode = (props: SetStateProps) => {
   globalState.modeData = undefined;
   globalState.mode = props.mode;
 
