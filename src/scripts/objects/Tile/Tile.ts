@@ -30,6 +30,8 @@ export class Tile extends Phaser.GameObjects.Image {
   demolishEvents: DemolishEvents;
   buildRoadsEvents: BuildRoadsEvents;
 
+  roadFrame: number | undefined;
+
   constructor({ scene, x, y, zIndex, row, column }: TileProps) {
     const gfx = assetsRegister.tiles.green;
 

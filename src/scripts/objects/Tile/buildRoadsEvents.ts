@@ -3,6 +3,10 @@ import { globalState } from '../../globalState';
 import { Tile } from './Tile';
 import { ZIndices } from './zIndices';
 
+const getTile = (row: number, column: number) => {
+  return globalState.map.mapArray[row][column];
+};
+
 export const createBuildRoadsEvents = (tile: Tile) => {
   const onPointerOver = () => {
     if (globalState.mode === 'build-road' && tile.content === undefined) {
@@ -42,16 +46,33 @@ export const createBuildRoadsEvents = (tile: Tile) => {
   };
 
   const onPointerDown = () => {
+    const { row, column } = tile;
     if (globalState.mode === 'build-road' && tile.content === undefined) {
+      let frame = 0;
       tile.overlay?.destroy();
       tile.overlay = undefined;
+
+      const seTile = getTile(row, column + 1);
+
+      if (seTile.roadFrame !== undefined) {
+        if (seTile.roadFrame === 0) {
+          seTile.roadFrame = 7;
+          seTile.content?.setFrame(7);
+        }
+        if (seTile.roadFrame === 5) {
+          seTile.roadFrame = 2;
+          seTile.content?.setFrame(2);
+        }
+        frame = 5;
+      }
 
       tile.content = tile.scene.add.image(
         tile.x,
         tile.y,
         assetsRegister.roads.roads,
-        0
+        frame
       );
+      tile.roadFrame = frame;
       tile.content.setOrigin(0, 1);
       tile.content.setDepth(tile.zIndex + ZIndices.contentSprite);
 
