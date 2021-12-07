@@ -1,7 +1,7 @@
 import { Buildable } from './buildablesRegister';
 import { Tile } from './objects/Tile/Tile';
 
-type GameMode = 'view' | 'build' | 'demolish';
+type GameMode = 'view' | 'build' | 'build-road' | 'demolish';
 
 type BuildData = {
   buildable: Buildable;
@@ -32,6 +32,9 @@ type SetStateProps =
   | {
       mode: 'build';
       data: BuildData;
+    }
+  | {
+      mode: 'build-road';
     }
   | {
       mode: 'demolish';

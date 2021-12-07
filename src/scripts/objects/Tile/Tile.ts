@@ -1,5 +1,6 @@
 import { assetsRegister } from '../../assetsRegister';
 import { BuildEvents, createBuildEvents } from './buildEvents';
+import { BuildRoadsEvents, createBuildRoadsEvents } from './buildRoadsEvents';
 import { createDemolishEvents, DemolishEvents } from './demolishEvents';
 import { ZIndices } from './zIndices';
 
@@ -27,6 +28,7 @@ export class Tile extends Phaser.GameObjects.Image {
 
   buildEvents: BuildEvents;
   demolishEvents: DemolishEvents;
+  buildRoadsEvents: BuildRoadsEvents;
 
   constructor({ scene, x, y, zIndex, row, column }: TileProps) {
     const gfx = assetsRegister.tiles.green;
@@ -52,20 +54,23 @@ export class Tile extends Phaser.GameObjects.Image {
 
     this.buildEvents = createBuildEvents(this);
     this.demolishEvents = createDemolishEvents(this);
+    this.buildRoadsEvents = createBuildRoadsEvents(this);
 
     this.on(Events.POINTER_OVER, () => {
       this.buildEvents.onPointerOver();
       this.demolishEvents.onPointerOver();
+      this.buildRoadsEvents.onPointerOver();
     });
     this.on(Events.POINTER_OUT, () => {
       this.buildEvents.onPointerOut();
       this.demolishEvents.onPointerOut();
+      this.buildRoadsEvents.onPointerOut();
     });
 
     this.on(Events.POINTER_DOWN, () => {
-      console.log({ row, column });
       this.buildEvents.onPointerDown();
       this.demolishEvents.onPointerDown();
+      this.buildRoadsEvents.onPointerDown();
     });
 
     this.scene.add.existing(this);

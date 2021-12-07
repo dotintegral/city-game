@@ -5,35 +5,25 @@ import {
 import { setGlobalMode } from '../../../../../globalState';
 
 export const listRoads = () => {
-  const keys = Object.keys(buildablesRegister.roads);
-  const items = keys.map((key) => {
-    const buildable: Buildable = buildablesRegister.roads[key];
+  const item = document.createElement('div');
 
-    const item = document.createElement('div');
-
-    item.className = 'selectionBarItem';
-    item.innerHTML = `
+  item.className = 'selectionBarItem';
+  item.innerHTML = `
       <div class="selectionBarItemName">
-        ${buildable.name}
+        Road
       </div>
     `;
 
-    item.addEventListener('click', () => {
-      setGlobalMode({
-        mode: 'build',
-        data: { buildable },
-      });
+  item.addEventListener('click', () => {
+    setGlobalMode({
+      mode: 'build-road',
     });
-
-    return item;
   });
 
   const content = document.createElement('div');
   content.className = 'selectionBarContent';
 
-  items.forEach((item) => {
-    content.appendChild(item);
-  });
+  content.appendChild(item);
 
   return content;
 };
