@@ -1,4 +1,5 @@
 import 'phaser';
+import { initGameLoop } from './gameLoop';
 import MainScene from './scenes/MainScene/MainScene';
 import PreloadScene from './scenes/PreloadScene/PreloadScene';
 import UIScene from './scenes/UIScene/UIScene';
@@ -33,3 +34,5 @@ const config: Phaser.Types.Core.GameConfig = {
 window.addEventListener('load', () => {
   const game = new Phaser.Game(config);
 });
+
+initGameLoop();

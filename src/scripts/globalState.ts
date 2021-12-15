@@ -7,12 +7,19 @@ type BuildData = {
   buildable: Buildable;
 };
 
+type Details = {
+  money: number;
+  date: Date;
+  dayDuration: number;
+};
+
 type State = {
   mode: GameMode;
   modeData: BuildData | undefined;
   map: {
     mapArray: Tile[][];
   };
+  details: Details;
 };
 
 export const globalState: State = {
@@ -20,6 +27,11 @@ export const globalState: State = {
   modeData: undefined,
   map: {
     mapArray: [],
+  },
+  details: {
+    money: 100000,
+    date: new Date('01-01-2020'),
+    dayDuration: 3,
   },
 };
 

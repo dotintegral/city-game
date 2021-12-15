@@ -19,6 +19,7 @@ export default class MainScene extends Phaser.Scene {
     this.createTiles();
 
     this.keyBindings.bindKeys();
+    this.cameras.main.setName('world');
   }
 
   createTiles() {

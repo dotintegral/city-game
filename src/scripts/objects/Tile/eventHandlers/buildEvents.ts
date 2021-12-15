@@ -1,9 +1,10 @@
-import { assetsRegister } from '../../assetsRegister';
-import { globalState } from '../../globalState';
-import { Tile } from './Tile';
-import { ZIndices } from './zIndices';
+import { assetsRegister } from '../../../assetsRegister';
+import { globalState } from '../../../globalState';
+import { Tile } from '../Tile';
+import { EventHandlerCreator } from '../types';
+import { ZIndices } from '../zIndices';
 
-export const createBuildEvents = (tile: Tile) => {
+export const createBuildEvents: EventHandlerCreator = (tile) => {
   const onPointerOver = () => {
     if (globalState.mode === 'build' && tile.content === undefined) {
       tile.overlay = tile.scene.add.image(
@@ -68,5 +69,3 @@ export const createBuildEvents = (tile: Tile) => {
     onPointerDown,
   };
 };
-
-export type BuildEvents = ReturnType<typeof createBuildEvents>;

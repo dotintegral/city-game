@@ -1,7 +1,9 @@
 import { assetsRegister } from '../../assetsRegister';
-import { BuildEvents, createBuildEvents } from './buildEvents';
-import { BuildRoadsEvents, createBuildRoadsEvents } from './buildRoadsEvents';
-import { createDemolishEvents, DemolishEvents } from './demolishEvents';
+import { createBuildEvents } from './eventHandlers/buildEvents';
+import { createBuildRoadsEvents } from './eventHandlers/buildRoadsEvents';
+import { createDemolishEvents } from './eventHandlers/demolishEvents';
+import { calculatePosition } from './eventHandlers/events.helper';
+import { EventHandler, TileContent } from './types';
 import { ZIndices } from './zIndices';
 
 const Events = Phaser.Input.Events;
@@ -26,11 +28,9 @@ export class Tile extends Phaser.GameObjects.Image {
   row: number;
   column: number;
 
-  buildEvents: BuildEvents;
-  demolishEvents: DemolishEvents;
-  buildRoadsEvents: BuildRoadsEvents;
+  eventHandlers: EventHandler[];
 
-  roadFrame: number | undefined;
+  tileContent: TileContent;
 
   constructor({ scene, x, y, zIndex, row, column }: TileProps) {
     const gfx = assetsRegister.tiles.green;
@@ -54,26 +54,27 @@ export class Tile extends Phaser.GameObjects.Image {
       alphaTolerance: 1,
     });
 
-    this.buildEvents = createBuildEvents(this);
-    this.demolishEvents = createDemolishEvents(this);
-    this.buildRoadsEvents = createBuildRoadsEvents(this);
+    this.eventHandlers = [
+      createBuildEvents(this),
+      createDemolishEvents(this),
+      createBuildRoadsEvents(this),
+    ];
 
     this.on(Events.POINTER_OVER, () => {
-      this.buildEvents.onPointerOver();
-      this.demolishEvents.onPointerOver();
-      this.buildRoadsEvents.onPointerOver();
+      this.eventHandlers.forEach((e) => e.onPointerOver());
     });
     this.on(Events.POINTER_OUT, () => {
-      this.buildEvents.onPointerOut();
-      this.demolishEvents.onPointerOut();
-      this.buildRoadsEvents.onPointerOut();
+      this.eventHandlers.forEach((e) => e.onPointerOut());
     });
 
-    this.on(Events.POINTER_DOWN, () => {
-      this.buildEvents.onPointerDown();
-      this.demolishEvents.onPointerDown();
-      this.buildRoadsEvents.onPointerDown();
-    });
+    this.on(
+      Events.POINTER_DOWN,
+      (event: Phaser.Input.Pointer, clickX: number, clickY: number) => {
+        this.eventHandlers.forEach((e) =>
+          e.onPointerDown(event, clickX, clickY)
+        );
+      }
+    );
 
     this.scene.add.existing(this);
   }

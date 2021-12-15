@@ -1,9 +1,9 @@
-import { assetsRegister } from '../../assetsRegister';
-import { globalState } from '../../globalState';
-import { Tile } from './Tile';
-import { ZIndices } from './zIndices';
+import { assetsRegister } from '../../../assetsRegister';
+import { globalState } from '../../../globalState';
+import { EventHandlerCreator } from '../types';
+import { ZIndices } from '../zIndices';
 
-export const createDemolishEvents = (tile: Tile) => {
+export const createDemolishEvents: EventHandlerCreator = (tile) => {
   const onPointerOver = () => {
     if (globalState.mode === 'demolish') {
       tile.selection = tile.scene.add.image(
@@ -54,5 +54,3 @@ export const createDemolishEvents = (tile: Tile) => {
     onPointerDown,
   };
 };
-
-export type DemolishEvents = ReturnType<typeof createDemolishEvents>;
