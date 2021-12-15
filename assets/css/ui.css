@@ -113,3 +113,19 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+/* --- Bottom Bar --- */
+
+.bottomBar {
+  background: gray;
+  height: 20px;
+  width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bottomBarDateItem,
+.bottomBarMoneyItem {
+  padding: 0px 10px;
+}
