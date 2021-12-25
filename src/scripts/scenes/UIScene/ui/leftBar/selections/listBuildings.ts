@@ -13,7 +13,7 @@ export const listBuildings = () => {
 
     item.className = 'selectionBarItem';
     item.innerHTML = `
-      <div class="selectionBarItemImage" style="background-image: url(${buildable.sprite})">
+      <div class="selectionBarItemImage" style="background-image: url(${buildable.sprite.src})">
       </div>
       <div class="selectionBarItemName">
         ${buildable.name}

@@ -1,10 +1,3 @@
-type AssetData = {
-  name: string;
-  src: string;
-  framwWidth: number;
-  frameHeight: number;
-};
-
 export const assetsRegister = {
   tiles: {
     green: 'assets/tiles/green.png',

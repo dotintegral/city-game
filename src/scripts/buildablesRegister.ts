@@ -1,4 +1,3 @@
-import { assetsRegister } from './assetsRegister';
 import { Block1 } from './buildables/residential/block1';
 import { House1 } from './buildables/residential/house1';
 
@@ -43,7 +42,7 @@ export type RoadBuildable = {
   details: Details;
 };
 
-const createOldBuildable = (p: RoadBuildable): RoadBuildable => p;
+const createRoadBuildable = (p: RoadBuildable): RoadBuildable => p;
 
 const buildings = {
   house1: House1,
@@ -51,7 +50,7 @@ const buildings = {
 };
 
 const roads = {
-  road1: createOldBuildable({
+  road1: createRoadBuildable({
     sprite: 'roads',
     name: 'Single road 1',
     frame: 0,
