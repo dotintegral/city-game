@@ -1,15 +1,20 @@
 import { assetsRegister } from '../../assetsRegister';
-import { Buildable } from '../../buildablesRegister';
+import { buildablesRegister, Buildable } from '../../buildablesRegister';
 import { scenesRegister } from '../scenes';
 
 const loadSprites = (
   scene: Phaser.Scene,
-  objects: Record<string, Buildable>[]
+  objects: Record<string, Buildable>
 ) => {
-  objects.forEach((object) => {
-    const keys = Object.keys(object);
+  const keys = Object.keys(objects);
 
-    keys.forEach((key) => {});
+  keys.forEach((key) => {
+    const buildable = objects[key];
+
+    scene.load.spritesheet(buildable.id, buildable.sprite.src, {
+      frameWidth: buildable.sprite.frameWidth,
+      frameHeight: buildable.sprite.frameHeight,
+    });
   });
 };
 
@@ -26,14 +31,7 @@ export default class PreloadScene extends Phaser.Scene {
       assetsRegister.tiles.selection
     );
 
-    this.load.image(
-      assetsRegister.buildings.house1,
-      assetsRegister.buildings.house1
-    );
-    this.load.image(
-      assetsRegister.buildings.block1,
-      assetsRegister.buildings.block1
-    );
+    loadSprites(this, buildablesRegister.buildings);
 
     this.load.spritesheet(
       assetsRegister.roads.roads,

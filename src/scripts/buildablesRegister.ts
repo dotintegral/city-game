@@ -1,4 +1,6 @@
 import { assetsRegister } from './assetsRegister';
+import { Block1 } from './buildables/residential/block1';
+import { House1 } from './buildables/residential/house1';
 
 type BuildableType = 'residential' | 'commercial' | 'industrial';
 
@@ -24,7 +26,7 @@ type Details = {
   monthlyRent: number;
 };
 
-export type NewBuildable = {
+export type Buildable = {
   name: string;
   description: string;
   type: BuildableType;
@@ -33,55 +35,34 @@ export type NewBuildable = {
   details: Details;
 };
 
-export type Buildable = {
+export type OldBuildable = {
   sprite: string;
   name: string;
   frame: number;
   details: Details;
 };
 
-const createBuildable = (p: Buildable): Buildable => p;
+const createBuildable = (p: OldBuildable): OldBuildable => p;
 
 const buildings = {
-  house1: createBuildable({
-    sprite: assetsRegister.buildings.house1,
-    name: 'House 1',
-    frame: 0,
-    details: {
-      price: 20000,
-      capacity: 5,
-      dayCosts: 10,
-      monthlyRent: 1000,
-    },
-  }),
-  block1: createBuildable({
-    sprite: assetsRegister.buildings.block1,
-    name: 'Block 1',
-    frame: 0,
-    details: {
-      price: 150000,
-      capacity: 50,
-      dayCosts: 200,
-      monthlyRent: 1000,
-    },
-  }),
+  house1: House1,
+  block1: Block1,
 };
 
-const roads = {
-  road1: createBuildable({
-    sprite: 'roads',
-    name: 'Single road 1',
-    frame: 0,
-    details: {
-      price: 1000,
-      capacity: 0,
-      dayCosts: 10,
-      monthlyRent: 0,
-    },
-  }),
-};
+// const roads = {
+//   road1: createBuildable({
+//     sprite: 'roads',
+//     name: 'Single road 1',
+//     frame: 0,
+//     details: {
+//       price: 1000,
+//       capacity: 0,
+//       dayCosts: 10,
+//       monthlyRent: 0,
+//     },
+//   }),
+// };
 
 export const buildablesRegister = {
   buildings,
-  roads,
 };

@@ -1,5 +1,5 @@
 import {
-  Buildable,
+  OldBuildable,
   buildablesRegister,
 } from '../../../../../buildablesRegister';
 import { setGlobalMode } from '../../../../../globalState';

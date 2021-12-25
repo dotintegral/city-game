@@ -1,4 +1,4 @@
-import { Buildable } from '../../buildablesRegister';
+import { Buildable, OldBuildable } from '../../buildablesRegister';
 import { Tile } from './Tile';
 
 export type RoadPiece = 'ne' | 'se' | 'sw' | 'nw';
@@ -6,7 +6,7 @@ export type RoadPiece = 'ne' | 'se' | 'sw' | 'nw';
 type RoadTileContent = {
   type: 'road';
   roadPieces: RoadPiece[];
-  buildable: Buildable;
+  buildable: OldBuildable;
 };
 
 export type BuildingTileContent = {

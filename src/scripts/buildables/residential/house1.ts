@@ -1,6 +1,7 @@
-import { NewBuildable } from '../../buildablesRegister';
+import { Buildable } from '../../buildablesRegister';
 
-export const House1: NewBuildable = {
+export const House1: Buildable = {
+  id: 'house-1',
   name: 'House 1',
   description: 'tbd',
   type: 'residential',

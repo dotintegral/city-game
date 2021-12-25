@@ -1,4 +1,4 @@
-import { Buildable } from './buildablesRegister';
+import { Buildable, OldBuildable } from './buildablesRegister';
 import { Tile } from './objects/Tile/Tile';
 
 type GameMode = 'view' | 'build' | 'build-road' | 'demolish';

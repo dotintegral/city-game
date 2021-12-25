@@ -11,10 +11,6 @@ export const assetsRegister = {
     yellow: 'assets/tiles/yellow.png',
     selection: 'assets/tiles/selection.png',
   },
-  buildings: {
-    house1: 'assets/buildings/house1.png',
-    block1: 'assets/buildings/block1.png',
-  },
   roads: {
     roads: 'assets/tiles/roads.png',
   },

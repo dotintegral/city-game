@@ -1,5 +1,5 @@
 import { assetsRegister } from '../../../assetsRegister';
-import { Buildable } from '../../../buildablesRegister';
+import { Buildable, OldBuildable } from '../../../buildablesRegister';
 import { globalState } from '../../../globalState';
 import { EventHandlerCreator } from '../types';
 import { ZIndices } from '../zIndices';
@@ -13,8 +13,8 @@ export const createBuildEvents: EventHandlerCreator = (tile) => {
       tile.overlay = tile.scene.add.image(
         tile.x,
         tile.y,
-        globalState.modeData?.buildable.sprite || '',
-        globalState.modeData?.buildable.frame || 0
+        globalState.modeData?.buildable.id || '',
+        0
       );
       tile.overlay.setOrigin(0, 1);
       tile.overlay.setAlpha(0.5);
@@ -69,8 +69,8 @@ export const createBuildEvents: EventHandlerCreator = (tile) => {
       tile.content = tile.scene.add.image(
         tile.x,
         tile.y,
-        globalState.modeData?.buildable.sprite || '',
-        globalState.modeData?.buildable.frame || 0
+        globalState.modeData?.buildable.id || '',
+        0
       );
       tile.content.setOrigin(0, 1);
       tile.content.setDepth(tile.zIndex + ZIndices.contentSprite);
