@@ -125,7 +125,6 @@ body {
   align-items: center;
 }
 
-.bottomBarDateItem,
-.bottomBarMoneyItem {
+.bottomBar > div {
   padding: 0px 10px;
 }
