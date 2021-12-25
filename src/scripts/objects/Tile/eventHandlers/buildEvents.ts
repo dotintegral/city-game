@@ -1,12 +1,15 @@
 import { assetsRegister } from '../../../assetsRegister';
+import { Buildable } from '../../../buildablesRegister';
 import { globalState } from '../../../globalState';
-import { Tile } from '../Tile';
 import { EventHandlerCreator } from '../types';
 import { ZIndices } from '../zIndices';
+import { hasEnoughMoney, onBuildableBuilt } from './buildable.helpers';
 
 export const createBuildEvents: EventHandlerCreator = (tile) => {
   const onPointerOver = () => {
     if (globalState.mode === 'build' && tile.content === undefined) {
+      const notEnoughMoney = !hasEnoughMoney();
+
       tile.overlay = tile.scene.add.image(
         tile.x,
         tile.y,
@@ -24,7 +27,13 @@ export const createBuildEvents: EventHandlerCreator = (tile) => {
       );
       tile.selection.setOrigin(0, 1);
       tile.selection.setDepth(tile.zIndex + ZIndices.overlayBorders);
-      tile.selection.setTint(0x10a010);
+
+      if (notEnoughMoney) {
+        tile.overlay.setTint(0xf01010);
+      }
+
+      const tint = hasEnoughMoney() ? 0x10a010 : 0xf01010;
+      tile.selection.setTint(tint);
     }
   };
 
@@ -43,9 +52,19 @@ export const createBuildEvents: EventHandlerCreator = (tile) => {
   };
 
   const onPointerDown = () => {
-    if (globalState.mode === 'build' && tile.content === undefined) {
+    if (
+      globalState.mode === 'build' &&
+      tile.content === undefined &&
+      hasEnoughMoney()
+    ) {
       tile.overlay?.destroy();
       tile.overlay = undefined;
+
+      tile.tileContent = {
+        type: 'building',
+        buildabe: globalState.modeData?.buildable as Buildable,
+        population: 0,
+      };
 
       tile.content = tile.scene.add.image(
         tile.x,
@@ -55,6 +74,10 @@ export const createBuildEvents: EventHandlerCreator = (tile) => {
       );
       tile.content.setOrigin(0, 1);
       tile.content.setDepth(tile.zIndex + ZIndices.contentSprite);
+
+      onBuildableBuilt();
+
+      globalState.map.buildingTiles.push(tile);
 
       if (tile.selection?.destroy) {
         tile.selection.destroy();

@@ -11,23 +11,25 @@ const updateTimeFlow = (now: number) => {
 
   if (diff > dayStepInMs) {
     lastDayChanged = now;
+    const yesterdaysMonth = globalState.details.date.getMonth();
 
     globalState.details.date.setDate(globalState.details.date.getDate() + 1);
 
     worldEvents.emit('dayChanged', globalState.details.date);
+    const todaysMonth = globalState.details.date.getMonth();
+
+    if (yesterdaysMonth !== todaysMonth) {
+      worldEvents.emit('monthChanged', globalState.details.date);
+    }
   }
 };
 
-const gameLoop = (now: number) => {
-  updateTimeFlow(now);
-};
-
-export const initGameLoop = () => {
+export const initTimeFlow = () => {
   const loop = () => {
     setTimeout(() => {
       loop();
       try {
-        gameLoop(new Date().getTime());
+        updateTimeFlow(new Date().getTime());
       } catch (e) {
         console.error(e);
       }

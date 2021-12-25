@@ -1,5 +1,17 @@
 import { assetsRegister } from '../../assetsRegister';
+import { Buildable } from '../../buildablesRegister';
 import { scenesRegister } from '../scenes';
+
+const loadSprites = (
+  scene: Phaser.Scene,
+  objects: Record<string, Buildable>[]
+) => {
+  objects.forEach((object) => {
+    const keys = Object.keys(object);
+
+    keys.forEach((key) => {});
+  });
+};
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {

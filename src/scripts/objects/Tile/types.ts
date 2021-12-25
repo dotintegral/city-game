@@ -1,3 +1,4 @@
+import { Buildable } from '../../buildablesRegister';
 import { Tile } from './Tile';
 
 export type RoadPiece = 'ne' | 'se' | 'sw' | 'nw';
@@ -5,9 +6,16 @@ export type RoadPiece = 'ne' | 'se' | 'sw' | 'nw';
 type RoadTileContent = {
   type: 'road';
   roadPieces: RoadPiece[];
+  buildable: Buildable;
 };
 
-export type TileContent = RoadTileContent | undefined;
+export type BuildingTileContent = {
+  type: 'building';
+  buildabe: Buildable;
+  population: number;
+};
+
+export type TileContent = BuildingTileContent | RoadTileContent | undefined;
 
 export type EventHandler = {
   onPointerOver: () => void;

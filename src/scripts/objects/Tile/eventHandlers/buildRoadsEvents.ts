@@ -7,6 +7,8 @@ import {
   clickPositionToRoadPiece,
   roadPiecesToFrame,
 } from './buildRoadsEvents.helpers';
+import { hasEnoughMoney, onBuildableBuilt } from './buildable.helpers';
+import { buildablesRegister } from '../../../buildablesRegister';
 
 export const createBuildRoadsEvents: EventHandlerCreator = (tile) => {
   const onPointerOver = () => {
@@ -21,7 +23,9 @@ export const createBuildRoadsEvents: EventHandlerCreator = (tile) => {
       );
       tile.selection.setOrigin(0, 1);
       tile.selection.setDepth(tile.zIndex + ZIndices.overlayBorders);
-      tile.selection.setTint(0x10a010);
+
+      const tint = hasEnoughMoney() ? 0x10a010 : 0xf01010;
+      tile.selection.setTint(tint);
     }
   };
 
@@ -40,7 +44,7 @@ export const createBuildRoadsEvents: EventHandlerCreator = (tile) => {
   };
 
   const onPointerDown = (event: Phaser.Input.Pointer, x: number, y: number) => {
-    if (globalState.mode === 'build-road') {
+    if (globalState.mode === 'build-road' && hasEnoughMoney()) {
       const position = calculatePosition(x, y);
       const roadPiece = clickPositionToRoadPiece(position);
 
@@ -48,6 +52,7 @@ export const createBuildRoadsEvents: EventHandlerCreator = (tile) => {
         tile.tileContent = {
           type: 'road',
           roadPieces: [],
+          buildable: buildablesRegister.roads.road1,
         };
       }
 
@@ -55,23 +60,25 @@ export const createBuildRoadsEvents: EventHandlerCreator = (tile) => {
         if (!tile.tileContent.roadPieces.includes(roadPiece)) {
           tile.tileContent.roadPieces.push(roadPiece);
         }
+
+        const frame = roadPiecesToFrame(tile.tileContent.roadPieces);
+
+        if (tile.content === undefined) {
+          tile.content = tile.scene.add.image(
+            tile.x,
+            tile.y,
+            assetsRegister.roads.roads,
+            frame
+          );
+        } else {
+          tile.content.setFrame(frame);
+        }
+
+        onBuildableBuilt();
+
+        tile.content.setOrigin(0, 1);
+        tile.content.setDepth(tile.zIndex + ZIndices.contentSprite);
       }
-
-      const frame = roadPiecesToFrame(tile.tileContent.roadPieces);
-
-      if (tile.content === undefined) {
-        tile.content = tile.scene.add.image(
-          tile.x,
-          tile.y,
-          assetsRegister.roads.roads,
-          frame
-        );
-      } else {
-        tile.content.setFrame(frame);
-      }
-
-      tile.content.setOrigin(0, 1);
-      tile.content.setDepth(tile.zIndex + ZIndices.contentSprite);
     }
   };
 

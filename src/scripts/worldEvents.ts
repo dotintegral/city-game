@@ -1,6 +1,7 @@
 type WorldEventParams = {
   dayChanged: Date;
-  moneyChanged: number;
+  monthChanged: Date;
+  moneyBalanceChanged: number;
 };
 
 type WorldEventName = keyof WorldEventParams;

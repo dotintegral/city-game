@@ -4,28 +4,40 @@ const createItems = () => {
   const dateItem = document.createElement('div');
   dateItem.className = 'bottomBarDateItem';
 
+  const populationItem = document.createElement('div');
+  populationItem.className = 'bottomBarPopulationItem';
+
   const moneyItem = document.createElement('div');
   moneyItem.className = 'bottomBarMoneyItem';
 
-  return [dateItem, moneyItem];
+  return [dateItem, populationItem, moneyItem];
 };
+
+const moneyFormatter = new Intl.NumberFormat('de-DE', {
+  style: 'currency',
+  currency: 'EUR',
+});
+
+const dateFormatter = new Intl.DateTimeFormat('de-DE');
 
 const updateItems = () => {
   const dateItem = document.querySelector('.bottomBarDateItem') as Element;
-
   const date = globalState.details.date;
-  const dateString = `${date.getDate()}.${
-    date.getMonth() + 1
-  }.${date.getFullYear()}`;
+  dateItem.textContent = dateFormatter.format(date);
 
-  dateItem.textContent = dateString;
+  const populationItem = document.querySelector(
+    '.bottomBarPopulationItem'
+  ) as Element;
+  const { capacity, population } = globalState.resources;
+  populationItem.textContent = `🧑 ${population}/${capacity}`;
 
-  const moneyItem = document.querySelector('.bottomBarMoneyItem') as Element;
-
-  const money = globalState.details.money;
-  const moneyString = `€${money.toFixed(2)}`;
-
-  moneyItem.textContent = moneyString;
+  const moneyItem = document.querySelector(
+    '.bottomBarMoneyItem'
+  ) as HTMLDivElement;
+  const money = globalState.resources.money;
+  const color = globalState.resources.money < 0 ? '#f01010' : '#10d010';
+  moneyItem.textContent = moneyFormatter.format(money);
+  moneyItem.style.color = color;
 };
 
 export const createBottomBar = (scene: Phaser.Scene) => {

@@ -17,6 +17,9 @@ export const listRoads = () => {
   item.addEventListener('click', () => {
     setGlobalMode({
       mode: 'build-road',
+      data: {
+        buildable: buildablesRegister.roads.road1,
+      },
     });
   });
 

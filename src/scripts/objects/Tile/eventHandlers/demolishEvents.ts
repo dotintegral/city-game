@@ -45,6 +45,11 @@ export const createDemolishEvents: EventHandlerCreator = (tile) => {
     if (globalState.mode === 'demolish' && tile.content !== undefined) {
       tile.content?.destroy();
       tile.content = undefined;
+
+      const index = globalState.map.buildingTiles.findIndex((t) => t === tile);
+      if (index > -1) {
+        globalState.map.buildingTiles.splice(index, 1);
+      }
     }
   };
 

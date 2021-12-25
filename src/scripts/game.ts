@@ -1,8 +1,9 @@
 import 'phaser';
-import { initGameLoop } from './gameLoop';
+import { initTimeFlow } from './timeFlow';
 import MainScene from './scenes/MainScene/MainScene';
 import PreloadScene from './scenes/PreloadScene/PreloadScene';
 import UIScene from './scenes/UIScene/UIScene';
+import { initiateEconomy } from './economy';
 
 const DEFAULT_WIDTH = 1280;
 const DEFAULT_HEIGHT = 720;
@@ -35,4 +36,5 @@ window.addEventListener('load', () => {
   const game = new Phaser.Game(config);
 });
 
-initGameLoop();
+initTimeFlow();
+initiateEconomy();

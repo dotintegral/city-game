@@ -7,10 +7,20 @@ type BuildData = {
   buildable: Buildable;
 };
 
-type Details = {
-  money: number;
+type DayDetails = {
   date: Date;
   dayDuration: number;
+};
+
+type Resources = {
+  money: number;
+  population: number;
+  capacity: number;
+};
+
+type Finances = {
+  dayCosts: number;
+  monthlyIncome: number;
 };
 
 type State = {
@@ -18,8 +28,11 @@ type State = {
   modeData: BuildData | undefined;
   map: {
     mapArray: Tile[][];
+    buildingTiles: Tile[];
   };
-  details: Details;
+  details: DayDetails;
+  resources: Resources;
+  finances: Finances;
 };
 
 export const globalState: State = {
@@ -27,11 +40,20 @@ export const globalState: State = {
   modeData: undefined,
   map: {
     mapArray: [],
+    buildingTiles: [],
   },
   details: {
-    money: 100000,
     date: new Date('01-01-2020'),
-    dayDuration: 3,
+    dayDuration: 0.2,
+  },
+  resources: {
+    money: 100000,
+    population: 0,
+    capacity: 0,
+  },
+  finances: {
+    dayCosts: 0,
+    monthlyIncome: 0,
   },
 };
 
@@ -47,6 +69,7 @@ type SetStateProps =
     }
   | {
       mode: 'build-road';
+      data: BuildData;
     }
   | {
       mode: 'demolish';
@@ -56,7 +79,7 @@ export const setGlobalMode = (props: SetStateProps) => {
   globalState.modeData = undefined;
   globalState.mode = props.mode;
 
-  if (props.mode === 'build') {
+  if (props.mode === 'build' || props.mode === 'build-road') {
     globalState.modeData = props.data;
   }
 
