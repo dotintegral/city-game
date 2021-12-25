@@ -1,10 +1,36 @@
 import { assetsRegister } from './assetsRegister';
 
+type BuildableType = 'residential' | 'commercial' | 'industrial';
+
+type BuildableSubType =
+  | 'single'
+  | 'duplex'
+  | 'terraced'
+  | 'block'
+  | 'grocery'
+  | 'supermarket'
+  | 'shopping-mall';
+
+type Sprite = {
+  src: string;
+  frameWidth: number;
+  frameHeight: number;
+};
+
 type Details = {
   price: number;
   capacity: number;
   dayCosts: number;
   monthlyRent: number;
+};
+
+export type NewBuildable = {
+  name: string;
+  description: string;
+  type: BuildableType;
+  subTypes: [BuildableSubType];
+  sprite: Sprite;
+  details: Details;
 };
 
 export type Buildable = {
