@@ -1,9 +1,12 @@
 import { assetsRegister } from '../../../assetsRegister';
-import { Buildable, OldBuildable } from '../../../buildablesRegister';
+import { Buildable, RoadBuildable } from '../../../buildablesRegister';
 import { globalState } from '../../../globalState';
 import { EventHandlerCreator } from '../types';
 import { ZIndices } from '../zIndices';
 import { hasEnoughMoney, onBuildableBuilt } from './buildable.helpers';
+
+const getBuildable = (): Buildable =>
+  globalState.modeData?.buildable as Buildable;
 
 export const createBuildEvents: EventHandlerCreator = (tile) => {
   const onPointerOver = () => {
@@ -13,7 +16,7 @@ export const createBuildEvents: EventHandlerCreator = (tile) => {
       tile.overlay = tile.scene.add.image(
         tile.x,
         tile.y,
-        globalState.modeData?.buildable.id || '',
+        getBuildable().id || '',
         0
       );
       tile.overlay.setOrigin(0, 1);
@@ -62,14 +65,14 @@ export const createBuildEvents: EventHandlerCreator = (tile) => {
 
       tile.tileContent = {
         type: 'building',
-        buildabe: globalState.modeData?.buildable as Buildable,
+        buildabe: getBuildable(),
         population: 0,
       };
 
       tile.content = tile.scene.add.image(
         tile.x,
         tile.y,
-        globalState.modeData?.buildable.id || '',
+        getBuildable().id || '',
         0
       );
       tile.content.setOrigin(0, 1);

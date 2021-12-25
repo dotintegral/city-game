@@ -1,10 +1,14 @@
-import { Buildable, OldBuildable } from './buildablesRegister';
+import { Buildable, RoadBuildable } from './buildablesRegister';
 import { Tile } from './objects/Tile/Tile';
 
 type GameMode = 'view' | 'build' | 'build-road' | 'demolish';
 
 type BuildData = {
   buildable: Buildable;
+};
+
+type OldBuildData = {
+  buildable: RoadBuildable;
 };
 
 type DayDetails = {
@@ -25,7 +29,7 @@ type Finances = {
 
 type State = {
   mode: GameMode;
-  modeData: BuildData | undefined;
+  modeData: BuildData | OldBuildData | undefined;
   map: {
     mapArray: Tile[][];
     buildingTiles: Tile[];
@@ -69,7 +73,7 @@ type SetStateProps =
     }
   | {
       mode: 'build-road';
-      data: BuildData;
+      data: OldBuildData;
     }
   | {
       mode: 'demolish';

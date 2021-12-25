@@ -1,4 +1,4 @@
-import { OldBuildable } from '../../../buildablesRegister';
+import { RoadBuildable } from '../../../buildablesRegister';
 import { globalState } from '../../../globalState';
 
 export const onBuildableBuilt = () => {

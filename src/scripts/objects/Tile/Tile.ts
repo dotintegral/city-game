@@ -2,7 +2,6 @@ import { assetsRegister } from '../../assetsRegister';
 import { createBuildEvents } from './eventHandlers/buildEvents';
 import { createBuildRoadsEvents } from './eventHandlers/buildRoadsEvents';
 import { createDemolishEvents } from './eventHandlers/demolishEvents';
-import { calculatePosition } from './eventHandlers/events.helper';
 import { EventHandler, TileContent } from './types';
 import { ZIndices } from './zIndices';
 

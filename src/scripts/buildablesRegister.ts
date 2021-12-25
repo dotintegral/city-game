@@ -27,6 +27,7 @@ type Details = {
 };
 
 export type Buildable = {
+  id: string;
   name: string;
   description: string;
   type: BuildableType;
@@ -35,34 +36,35 @@ export type Buildable = {
   details: Details;
 };
 
-export type OldBuildable = {
+export type RoadBuildable = {
   sprite: string;
   name: string;
   frame: number;
   details: Details;
 };
 
-const createBuildable = (p: OldBuildable): OldBuildable => p;
+const createOldBuildable = (p: RoadBuildable): RoadBuildable => p;
 
 const buildings = {
   house1: House1,
   block1: Block1,
 };
 
-// const roads = {
-//   road1: createBuildable({
-//     sprite: 'roads',
-//     name: 'Single road 1',
-//     frame: 0,
-//     details: {
-//       price: 1000,
-//       capacity: 0,
-//       dayCosts: 10,
-//       monthlyRent: 0,
-//     },
-//   }),
-// };
+const roads = {
+  road1: createOldBuildable({
+    sprite: 'roads',
+    name: 'Single road 1',
+    frame: 0,
+    details: {
+      price: 1000,
+      capacity: 0,
+      dayCosts: 10,
+      monthlyRent: 0,
+    },
+  }),
+};
 
 export const buildablesRegister = {
   buildings,
+  roads,
 };
