@@ -1,6 +1,7 @@
 import { assetsRegister } from '../../../assetsRegister';
 import { Buildable, RoadBuildable } from '../../../buildablesRegister';
-import { globalState } from '../../../globalState';
+import { BuildData, globalState } from '../../../globalState';
+import { Rotation } from '../../../types';
 import { EventHandlerCreator } from '../types';
 import { ZIndices } from '../zIndices';
 import { hasEnoughMoney, onBuildableBuilt } from './buildable.helpers';
@@ -8,7 +9,19 @@ import { hasEnoughMoney, onBuildableBuilt } from './buildable.helpers';
 const getBuildable = (): Buildable =>
   globalState.modeData?.buildable as Buildable;
 
+const getModeData = (): BuildData => globalState.modeData as BuildData;
+
+const rotationToFrame = (rot: Rotation): number => {
+  return rot / 90;
+};
+
 export const createBuildEvents: EventHandlerCreator = (tile) => {
+  const onRotation = () => {
+    const newRotation = ((getModeData().rotation + 90) % 360) as Rotation;
+    getModeData().rotation = newRotation;
+    tile.overlay?.setFrame(rotationToFrame(newRotation));
+  };
+
   const onPointerOver = () => {
     if (globalState.mode === 'build' && tile.content === undefined) {
       const notEnoughMoney = !hasEnoughMoney();
@@ -17,7 +30,7 @@ export const createBuildEvents: EventHandlerCreator = (tile) => {
         tile.x,
         tile.y,
         getBuildable().id || '',
-        0
+        rotationToFrame(getModeData().rotation)
       );
       tile.overlay.setOrigin(0, 1);
       tile.overlay.setAlpha(0.5);
@@ -31,6 +44,8 @@ export const createBuildEvents: EventHandlerCreator = (tile) => {
       tile.selection.setOrigin(0, 1);
       tile.selection.setDepth(tile.zIndex + ZIndices.overlayBorders);
 
+      tile.scene.input.keyboard.on('keydown-R', onRotation);
+
       if (notEnoughMoney) {
         tile.overlay.setTint(0xf01010);
       }
@@ -41,6 +56,7 @@ export const createBuildEvents: EventHandlerCreator = (tile) => {
   };
 
   const onPointerOut = () => {
+    tile.scene.input.keyboard.off('keydown-R', onRotation);
     if (globalState.mode === 'build' && tile.content === undefined) {
       if (tile.overlay?.destroy) {
         tile.overlay.destroy();
@@ -73,7 +89,7 @@ export const createBuildEvents: EventHandlerCreator = (tile) => {
         tile.x,
         tile.y,
         getBuildable().id || '',
-        0
+        rotationToFrame(getModeData().rotation)
       );
       tile.content.setOrigin(0, 1);
       tile.content.setDepth(tile.zIndex + ZIndices.contentSprite);

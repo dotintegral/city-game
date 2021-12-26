@@ -1,13 +1,15 @@
 import { Buildable, RoadBuildable } from './buildablesRegister';
 import { Tile } from './objects/Tile/Tile';
+import { Rotation } from './types';
 
 type GameMode = 'view' | 'build' | 'build-road' | 'demolish';
 
-type BuildData = {
+export type BuildData = {
   buildable: Buildable;
+  rotation: Rotation;
 };
 
-type OldBuildData = {
+export type OldBuildData = {
   buildable: RoadBuildable;
 };
 

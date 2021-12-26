@@ -11,9 +11,17 @@ export const listBuildings = () => {
 
     const item = document.createElement('div');
 
+    const styles = [
+      `background-image: url(${buildable.sprite.src})`,
+      `width: ${buildable.sprite.frameWidth}px`,
+      `height: ${buildable.sprite.frameHeight}px`,
+    ].join('; ');
+
     item.className = 'selectionBarItem';
     item.innerHTML = `
-      <div class="selectionBarItemImage" style="background-image: url(${buildable.sprite.src})">
+      <div class="selectionBarItemImage">
+        <div className="selectionBarItemImageViewport" style="${styles}">
+        </div>
       </div>
       <div class="selectionBarItemName">
         ${buildable.name}
@@ -23,7 +31,7 @@ export const listBuildings = () => {
     item.addEventListener('click', () => {
       setGlobalMode({
         mode: 'build',
-        data: { buildable },
+        data: { buildable, rotation: 0 },
       });
     });
 

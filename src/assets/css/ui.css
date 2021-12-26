@@ -101,10 +101,13 @@ body {
 .selectionBarItemImage {
   width: 70px;
   height: 70px;
-  background-size: contain;
-  background-position-x: center;
-  background-position-y: center;
-  background-repeat: no-repeat;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectionBarItemImageViewport {
 }
 
 .selectionBarItemName {

@@ -1,3 +1,4 @@
+import { assetsRegister } from '../../../../../assetsRegister';
 import {
   RoadBuildable,
   buildablesRegister,
@@ -7,10 +8,21 @@ import { setGlobalMode } from '../../../../../globalState';
 export const listRoads = () => {
   const item = document.createElement('div');
 
+  const styles = [
+    `background-image: url(${assetsRegister.roads.roads})`,
+    `width: 64px`,
+    `height: 32px`,
+    `background-position: -128px 0px`,
+  ].join('; ');
+
   item.className = 'selectionBarItem';
   item.innerHTML = `
+      <div class="selectionBarItemImage">
+        <div className="selectionBarItemImageViewport" style="${styles}">
+        </div>
+      </div>
       <div class="selectionBarItemName">
-        Road
+       Road 1
       </div>
     `;
 
