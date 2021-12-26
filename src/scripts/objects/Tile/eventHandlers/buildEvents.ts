@@ -2,6 +2,7 @@ import { assetsRegister } from '../../../assetsRegister';
 import { Buildable, RoadBuildable } from '../../../buildablesRegister';
 import { BuildData, globalState } from '../../../globalState';
 import { Rotation } from '../../../types';
+import { worldEvents } from '../../../worldEvents';
 import { EventHandlerCreator } from '../types';
 import { ZIndices } from '../zIndices';
 import { hasEnoughMoney, onBuildableBuilt } from './buildable.helpers';
@@ -22,10 +23,19 @@ export const createBuildEvents: EventHandlerCreator = (tile) => {
     tile.overlay?.setFrame(rotationToFrame(newRotation));
   };
 
+  const checkIfCanAfford = () => {
+    const notEnoughMoney = !hasEnoughMoney();
+    if (notEnoughMoney) {
+      tile.overlay?.setTint(0xf01010);
+    } else {
+      tile.overlay?.clearTint();
+    }
+    const tint = hasEnoughMoney() ? 0x10a010 : 0xf01010;
+    tile.selection?.setTint(tint);
+  };
+
   const onPointerOver = () => {
     if (globalState.mode === 'build' && tile.content === undefined) {
-      const notEnoughMoney = !hasEnoughMoney();
-
       tile.overlay = tile.scene.add.image(
         tile.x,
         tile.y,
@@ -44,19 +54,18 @@ export const createBuildEvents: EventHandlerCreator = (tile) => {
       tile.selection.setOrigin(0, 1);
       tile.selection.setDepth(tile.zIndex + ZIndices.overlayBorders);
 
+      checkIfCanAfford();
+
+      worldEvents.on('dayChanged', checkIfCanAfford);
+
       tile.scene.input.keyboard.on('keydown-R', onRotation);
-
-      if (notEnoughMoney) {
-        tile.overlay.setTint(0xf01010);
-      }
-
-      const tint = hasEnoughMoney() ? 0x10a010 : 0xf01010;
-      tile.selection.setTint(tint);
     }
   };
 
   const onPointerOut = () => {
     tile.scene.input.keyboard.off('keydown-R', onRotation);
+    worldEvents.off('dayChanged', checkIfCanAfford);
+
     if (globalState.mode === 'build' && tile.content === undefined) {
       if (tile.overlay?.destroy) {
         tile.overlay.destroy();

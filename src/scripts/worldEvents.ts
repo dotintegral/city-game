@@ -23,8 +23,13 @@ const createWorldEvents = () => {
     emitter.emit(event, data);
   };
 
+  const off = <T extends WorldEventName>(event: T, callback: () => void) => {
+    emitter.off(event, callback);
+  };
+
   return {
     on,
+    off,
     emit,
   };
 };
