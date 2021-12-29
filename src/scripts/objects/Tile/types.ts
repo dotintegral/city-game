@@ -13,6 +13,7 @@ export type BuildingTileContent = {
   type: 'building';
   buildabe: Buildable;
   population: number;
+  level: number;
 };
 
 export type TileContent = BuildingTileContent | RoadTileContent | undefined;

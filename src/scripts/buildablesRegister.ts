@@ -1,3 +1,4 @@
+import { Shop1 } from './buildables/commercial/shop1';
 import { Block1 } from './buildables/residential/block1';
 import { House1 } from './buildables/residential/house1';
 
@@ -25,6 +26,12 @@ type Details = {
   monthlyRent: number;
 };
 
+type Requirement = {
+  level: number;
+  proximity: number;
+  subTypes: [BuildableSubType];
+};
+
 export type Buildable = {
   id: string;
   name: string;
@@ -33,6 +40,7 @@ export type Buildable = {
   subTypes: [BuildableSubType];
   sprite: Sprite;
   details: Details;
+  requirements: Requirement[];
 };
 
 export type RoadBuildable = {
@@ -47,6 +55,7 @@ const createRoadBuildable = (p: RoadBuildable): RoadBuildable => p;
 const buildings = {
   house1: House1,
   block1: Block1,
+  shop1: Shop1,
 };
 
 const roads = {

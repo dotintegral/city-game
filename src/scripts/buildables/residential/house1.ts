@@ -14,7 +14,14 @@ export const House1: Buildable = {
   details: {
     price: 20_000,
     capacity: 5,
-    dayCosts: 10,
+    dayCosts: 100,
     monthlyRent: 1_000,
   },
+  requirements: [
+    {
+      level: 1,
+      subTypes: ['grocery'],
+      proximity: 5,
+    },
+  ],
 };

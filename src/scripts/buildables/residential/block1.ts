@@ -17,4 +17,5 @@ export const Block1: Buildable = {
     dayCosts: 300,
     monthlyRent: 500,
   },
+  requirements: [],
 };

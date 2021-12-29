@@ -92,6 +92,7 @@ export const createBuildEvents: EventHandlerCreator = (tile) => {
         type: 'building',
         buildabe: getBuildable(),
         population: 0,
+        level: 0,
       };
 
       tile.content = tile.scene.add.image(
