@@ -3,8 +3,6 @@ import { Tile } from '../../objects/Tile/Tile';
 import { createKeyBindings } from './keyBindings';
 import { globalState } from '../../globalState';
 
-const mapSize = 32;
-
 export default class MainScene extends Phaser.Scene {
   keyBindings;
   ui;
@@ -26,12 +24,12 @@ export default class MainScene extends Phaser.Scene {
     const mapTopY = 100;
     const mapTopX = this.cameras.main.width / 2;
 
-    for (let row = 0; row < mapSize; row++) {
+    for (let row = 0; row < globalState.map.mapRows; row++) {
       const rowTopX = mapTopX - row * 32;
       const rowTopY = mapTopY + row * 16;
       globalState.map.mapArray.push([]);
 
-      for (let column = 0; column < mapSize; column++) {
+      for (let column = 0; column < globalState.map.mapColumns; column++) {
         const x = rowTopX + 32 * column;
         const y = rowTopY + 16 * column;
         const zIndex = (row + column + 1) * 10;

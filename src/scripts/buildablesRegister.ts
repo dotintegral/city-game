@@ -26,7 +26,7 @@ type Details = {
   monthlyRent: number;
 };
 
-type Requirement = {
+export type Requirement = {
   level: number;
   proximity: number;
   subTypes: [BuildableSubType];

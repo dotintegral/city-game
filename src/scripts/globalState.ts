@@ -33,6 +33,8 @@ type State = {
   mode: GameMode;
   modeData: BuildData | OldBuildData | undefined;
   map: {
+    mapRows: number;
+    mapColumns: number;
     mapArray: Tile[][];
     buildingTiles: Tile[];
   };
@@ -45,6 +47,8 @@ export const globalState: State = {
   mode: 'view',
   modeData: undefined,
   map: {
+    mapRows: 16,
+    mapColumns: 16,
     mapArray: [],
     buildingTiles: [],
   },
@@ -88,6 +92,4 @@ export const setGlobalMode = (props: SetStateProps) => {
   if (props.mode === 'build' || props.mode === 'build-road') {
     globalState.modeData = props.data;
   }
-
-  console.log({ globalState });
 };

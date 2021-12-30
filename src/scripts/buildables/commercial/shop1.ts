@@ -12,7 +12,7 @@ export const Shop1: Buildable = {
     frameHeight: 64,
   },
   details: {
-    price: 40_000,
+    price: 20_000,
     capacity: 0,
     dayCosts: 50,
     monthlyRent: 1_000,

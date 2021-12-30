@@ -14,7 +14,7 @@ export const House1: Buildable = {
   details: {
     price: 20_000,
     capacity: 5,
-    dayCosts: 100,
+    dayCosts: 50,
     monthlyRent: 1_000,
   },
   requirements: [
