@@ -2,6 +2,7 @@ import { assetsRegister } from '../../assetsRegister';
 import { createBuildEvents } from './eventHandlers/buildEvents';
 import { createBuildRoadsEvents } from './eventHandlers/buildRoadsEvents';
 import { createDemolishEvents } from './eventHandlers/demolishEvents';
+import { createLevelHandler } from './helpers/level';
 import { EventHandler, TileContent } from './types';
 import { ZIndices } from './zIndices';
 
@@ -20,6 +21,7 @@ export class Tile extends Phaser.GameObjects.Image {
   selection: Phaser.GameObjects.Image | undefined;
   overlay: Phaser.GameObjects.Image | undefined;
   content: Phaser.GameObjects.Image | undefined;
+  indicator: Phaser.GameObjects.Image | undefined;
   scene: Phaser.Scene;
   zIndex: number;
   x: number;
@@ -28,6 +30,7 @@ export class Tile extends Phaser.GameObjects.Image {
   column: number;
 
   eventHandlers: EventHandler[];
+  levelHandler: ReturnType<typeof createLevelHandler>;
 
   tileContent: TileContent;
 
@@ -59,6 +62,8 @@ export class Tile extends Phaser.GameObjects.Image {
       createBuildRoadsEvents(this),
     ];
 
+    this.levelHandler = createLevelHandler(this);
+
     this.on(Events.POINTER_OVER, () => {
       this.eventHandlers.forEach((e) => e.onPointerOver());
     });
@@ -76,5 +81,9 @@ export class Tile extends Phaser.GameObjects.Image {
     );
 
     this.scene.add.existing(this);
+  }
+
+  checkState() {
+    this.levelHandler.checkLevel();
   }
 }

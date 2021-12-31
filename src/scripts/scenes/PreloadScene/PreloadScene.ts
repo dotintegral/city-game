@@ -30,6 +30,7 @@ export default class PreloadScene extends Phaser.Scene {
       assetsRegister.tiles.selection,
       assetsRegister.tiles.selection
     );
+    this.load.image(assetsRegister.indicator, assetsRegister.indicator);
 
     loadSprites(this, buildablesRegister.buildings);
 

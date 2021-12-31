@@ -90,7 +90,10 @@ const recalculateLevel = (tile: Tile) => {
     }
   });
 
-  tileContent.level = calculateNewLevel(requirementsMap);
+  const newLevel = calculateNewLevel(requirementsMap);
+
+  tileContent.level = newLevel;
+  tile.checkState();
 };
 
 export const calculateLevelChanges = () => {

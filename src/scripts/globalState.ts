@@ -43,12 +43,19 @@ type State = {
   finances: Finances;
 };
 
+export const globalConsts = {
+  tileWidth: 64,
+  tileHeight: 32,
+  mapRows: 16,
+  mapColumns: 16,
+};
+
 export const globalState: State = {
   mode: 'view',
   modeData: undefined,
   map: {
-    mapRows: 16,
-    mapColumns: 16,
+    mapRows: globalConsts.mapRows,
+    mapColumns: globalConsts.mapColumns,
     mapArray: [],
     buildingTiles: [],
   },

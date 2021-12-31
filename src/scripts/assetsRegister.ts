@@ -7,4 +7,5 @@ export const assetsRegister = {
   roads: {
     roads: 'assets/tiles/roads.png',
   },
+  indicator: 'assets/indicator.png',
 };
